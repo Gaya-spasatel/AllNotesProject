@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: database
+    command: --init-file /data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+        - "3306:3306"
+    volumes:
+        - dbdata:/var/lib/mysql
+        - ./sql/init.sql:/data/application/init.sql
+        - ./sql/inputdatainDB.sql:/data/application/inputdatainDB.sql
+  app:
+    container_name: server_note
+    build:
+      context: .
+    ports:
+      - "8080:80"
+volumes:
+  dbdata:
