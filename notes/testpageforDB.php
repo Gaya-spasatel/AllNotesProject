@@ -10,7 +10,7 @@
     <?php
         include_once("DBasequery.php");
         include_once('./confDb.php');
-
+        echo "start";
         $db = new Dbase();
         $res = $db->connect($HOST_NAME, $USER_NAME, $USER_PASSWORD, $DB_NAME);
         echo "<b>Проверка подключения к БД -></b> ";

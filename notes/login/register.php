@@ -1,10 +1,7 @@
 <?php 
 include_once("../DBasequery.php");
 if(isset($_POST['reg_login'])){
-    $HOST_NAME = 'database';
-    $USER_NAME = 'multinote';
-    $USER_PASSWORD = 'multinotepassword';
-    $DB_NAME = 'multinote';
+    include_once('../confDb.php');
 
     $result = array();
 
@@ -28,6 +25,8 @@ if(isset($_POST['reg_login'])){
         } else {
                 $result['answer'] = 'No access to DB';
         }
+    } else{
+        $result['connection'] = false;
     }
     echo json_encode($result, JSON_FORCE_OBJECT);
 } else {

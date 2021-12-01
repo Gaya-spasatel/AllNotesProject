@@ -97,23 +97,8 @@ RUN apt-get update && apt-get install -y \
 ##RUN /usr/local/bin/docker-entrypoint.sh mysqld
 #ENTRYPOINT ["docker-entrypoint.sh"]
 
-RUN mkdir /var/www/html/notes
-RUN mkdir /var/www/html/notes/app
-RUN mkdir /var/www/html/notes/login
-RUN chown -R www-data:www-data /var/www/html/notes
-RUN chmod 1775 /var/www/html/notes
-RUN chmod 1775 /var/www/html/notes/app
-RUN chmod 1775 /var/www/html/notes/login
-ADD --chown=www-data:www-data notes/app/* /var/www/html/notes/app/
-ADD --chown=www-data:www-data notes/login/* /var/www/html/notes/login/
-ADD --chown=www-data:www-data notes/*.php /var/www/html/notes/
-ADD --chown=www-data:www-data notes/*.json /var/www/html/notes/
-ADD --chown=www-data:www-data index.php /var/www/html/index.php
-ADD php.ini-mail /usr/local/etc/php/php.ini
-RUN chmod 660 /var/www/html/notes/app/*
-RUN chmod 660 /var/www/html/notes/login/*
-RUN chmod 660 /var/www/html/notes/*
 
+ADD php.ini-mail /usr/local/etc/php/php.ini
 # Добавим свой php.ini, можем в нем определять свои значения конфига
 #ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 

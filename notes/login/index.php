@@ -2,10 +2,7 @@
 include_once("../DBasequery.php");
 if(isset($_POST['login'])){
     $token = hash('md5', (string)time().$_POST['login'].$_POST['password']);
-    $HOST_NAME = 'database';
-    $USER_NAME = 'multinote';
-    $USER_PASSWORD = 'multinotepassword';
-    $DB_NAME = 'multinote';
+    include_once '../confDb.php';
 
     $result = array();
 

@@ -64,11 +64,11 @@ class Dbase
     public function add_note($login)
     {
         /*function ads new note to db*/
-        if ($res = $this->mysqli->query("INSERT INTO notes SET owner='$login', text='0', login_modified='$login', is_modified='0'")) {
+        if ($res = $this->mysqli->query("INSERT INTO notes SET owner='$login', text='0', login_modified='$login', is_modified='0';")) {
             return true;
 
         }
-        return "Ошибка запроса к БД функции добавление нового пользователя";
+        return "Ошибка запроса к БД функции добавление новой заметки";
 
     }
 
@@ -151,15 +151,16 @@ class Dbase
 
         $returnResult = array(); //initialise empty array
         $temp = $this->get_notes_user_has_access($login);
-        if (is_string($temp)) {
-            return $temp;
-        }
+//        if (is_string($temp)) {
+//            return $temp;
+//        }
         if (is_array($temp)) {
             $returnResult += $temp;
         }
 
         //gets all user`s notes
-        if ($res = $this->mysqli->query("SELECT * FROM notes WHERE owner='$login'")) {
+        $res = $this->mysqli->query("SELECT * FROM notes WHERE owner='$login'");
+        if ($res) {
             if ($res->num_rows != 0) {
                 while ($row = $res->fetch_assoc()) {
                     $returnResult[] = $row;
@@ -168,7 +169,8 @@ class Dbase
             }
             $res->close();
         } else {
-            return "Ошибка запроса к БД функции получения всех заметок пользователя";
+            $x = gettype($res);
+            return "Ошибка запроса к БД функции получения всех заметок пользователя {$x}";
         }
         return $returnResult;
     }
@@ -210,7 +212,7 @@ class Dbase
             }
 
         }
-        return "Ошибка запроса к БД функции получения доступа";
+        return "Ошибка запроса к БД функции получения доступа к доступным заметкам от других пользователей";
     }
 
     public function get_list_access($id_note){
@@ -223,7 +225,7 @@ class Dbase
                 $res->close();
                 return $returnResult;
         }
-        return "Ошибка запроса к БД функции получения доступа";
+        return "Ошибка запроса к БД функции получения доступа list of access notes";
     }
 
     public function is_modified($id_note)

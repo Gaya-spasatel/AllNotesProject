@@ -16,7 +16,7 @@ function test_token($user, $token){
 }
 
 function connect_to_db(){
-
+	include_once("../confDb.php");
 	$db = new Dbase();
 	$res = $db->connect($HOST_NAME, $USER_NAME, $USER_PASSWORD, $DB_NAME);
 	if($res==true) return $db;
@@ -41,7 +41,7 @@ if(isset($_POST['command'])and isset($_POST['token'])){
 				$result['notes'] = $notes;
 				$result['answer'] = 'OK';
 			} else {
-				$result['answer'] = "DB Error";
+				$result['answer'] = "DB Error {$notes}";
 			}
 		}else{
 			$result['answer'] = 'Connection error';
@@ -128,7 +128,7 @@ if(isset($_POST['command'])and isset($_POST['token'])){
 			if(is_array($ask)){
 				$result['list_access'] = $ask;
 			}else{
-				$result['answer'] = 'Error';
+				$result['answer'] = "Error {$ask}";
 			}
 		} else{
 			$result['answer'] = 'Connection error';

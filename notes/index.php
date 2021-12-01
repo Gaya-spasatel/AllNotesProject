@@ -35,7 +35,8 @@ if(isset($_POST['login'])){
 	}
 
     } else{
-        echo "Responce error";
+
+        echo "Responce error {var_dump($result)}";
     }
 
 }else if(isset($_POST['reg_login'])){

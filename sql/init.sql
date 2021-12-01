@@ -31,3 +31,4 @@ create table if not exists notes (
                        is_private BOOL NOT NULL DEFAULT 1,
                        is_modified BOOL NOT NULL,
                        PRIMARY KEY ( id ));
+
