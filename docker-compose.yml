@@ -1,24 +1,27 @@
-version: '3'
+version: "3"
 services:
   db:
     image: mysql:5.7
     container_name: database
-    command: --init-file /data/application/init.sql
+    hostname: db
     environment:
       MYSQL_ROOT_PASSWORD: secret
+      HOSTNAME: db
     ports:
         - "3306:3306"
     volumes:
         - dbdata:/var/lib/mysql
-        - ./sql/init.sql:/data/application/init.sql
-        - ./sql/inputdatainDB.sql:/data/application/inputdatainDB.sql
+        - ./sql:/docker-entrypoint-initdb.d
+
   app:
+    build: .
     container_name: server_note
     volumes:
+      - ./conf/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./notes:/var/www/html
-    build:
-      context: .
     ports:
-      - "8080:80"
+      - "80:80"
+    depends_on:
+      - db
 volumes:
   dbdata:

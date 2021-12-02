@@ -11,7 +11,7 @@ if(isset($_POST['exit']) and isset($_POST['user']) and isset($_POST['token'])){
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $response = curl_exec($ch);
     curl_close($ch);
-    header("Location: index.php");
+    header("Location: hello.php");
 
 }
 

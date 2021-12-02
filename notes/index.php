@@ -20,7 +20,7 @@ function get_post($data, $url){
 
 if(isset($_POST['login'])){
     $data = ['login' => $_POST['login'], 'password' => $_POST['password']];
-    $url = my_parse_url('url.json').'login/index.php';
+    $url = my_parse_url('url.json').'login/hello.php';
 
     $response = get_post($data, $url);
     $result = json_decode($response, true);
@@ -53,7 +53,7 @@ if(isset($_POST['login'])){
 }
 if($flag){
 echo "<table><tr><td>   
-<form id='forma' action='index.php' method='post'> 
+<form id='forma' action='hello.php' method='post'> 
 <h1>Форма входа</h1> 
 <p>Заполните поля для входа на сайт</p> 
 <p>Логин<br /><input type='text' name='login'></p> 
@@ -61,7 +61,7 @@ echo "<table><tr><td>
 <p><input type='submit' name='submit' value='Войти'> <br></p></form>
 </td>
 <td>
-<form id='forma2' action='index.php' method='post'>
+<form id='forma2' action='hello.php' method='post'>
 <h1>Форма Регистрации</h1>
 <p>Заполните поля для регистрации на сайт</p>
 <p>Логин<br /><input type='text' name='reg_login'></p>

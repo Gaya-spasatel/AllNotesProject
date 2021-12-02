@@ -1,11 +1,9 @@
-CREATE USER 'multinote'@'database' IDENTIFIED BY 'multinotepassword';
-GRANT CREATE, SELECT, INSERT, UPDATE, DELETE ON multinote.* TO 'multinote'@'database';
+CREATE DATABASE IF NOT EXISTS multinote CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE USER 'multinote'@'%' IDENTIFIED BY 'multinotepassword';
+GRANT ALL PRIVILEGES ON multinote.* TO 'multinote'@'%';
 FLUSH PRIVILEGES;
 
-CREATE DATABASE  IF NOT EXISTS multinote CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-use multinote;
-
+USE multinote;
 -- Создаем таблицу users
 create table if not exists users (
                        id INT NOT NULL AUTO_INCREMENT,
@@ -25,7 +23,7 @@ create table if not exists access (
 create table if not exists notes (
                        id INT NOT NULL AUTO_INCREMENT,
                        owner VARCHAR(50) NOT NULL,
-                       text VARCHAR(65000) NOT NULL,
+                       text TEXT NOT NULL,
                        last_modified TIMESTAMP NOT NULL,
                        login_modified VARCHAR(50) NOT NULL,
                        is_private BOOL NOT NULL DEFAULT 1,
