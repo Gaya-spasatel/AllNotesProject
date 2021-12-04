@@ -18,7 +18,7 @@ services:
     container_name: server_note
     volumes:
       - ./conf/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./notes:/var/www/html
+#      - ./notes:/var/www/html
     ports:
       - "80:80"
     depends_on:
