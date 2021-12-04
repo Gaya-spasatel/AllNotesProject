@@ -15,6 +15,7 @@ function test_token($user, $token){
 	return false;
 }
 
+
 function connect_to_db(){
 	include '../confDb.php';
 	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
