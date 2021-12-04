@@ -24,8 +24,8 @@ if(isset($_POST['login'])){
     $response = get_post($data, $url);
 
     $result = json_decode($response, true);
-    var_export($result);
     if(isset($result['answer'])){
+        header("Location: index.php");
         echo "Registration answer: ".$result['answer']."<br>";
     }
 

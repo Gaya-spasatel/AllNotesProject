@@ -1,8 +1,6 @@
 <html lang="en">
-
 <head><title>MultiNoteWebApp</title></head>
 <body>
-
 <?php
 include_once('parseurl.php');
 function echo_access()
@@ -46,31 +44,7 @@ function echo_form($data)
                 </form>";
 }
 include_once 'parseurl.php';
-?>
-<script>
 
-    window.onbeforeunload = closingCode;
-
-    function closingCode() {
-        alert('hello!');
-        <?php
-
-        if(isset($_POST['token']) and isset($_POST['id_note']) and isset($_POST['user']) and isset($_POST['command']) and $_POST['command'] == 'change'){
-        ?>
-        let formData = new FormData(document.forms.form);
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/article/xmlhttprequest/post/user", true);
-        xhr.send(formData);
-        <?php
-        }
-
-        ?>
-        return null;
-    }
-
-</script>
-
-<?php
 if (isset($_POST['token']) and isset($_POST['id_note']) and isset($_POST['user'])) {
     if (isset($_POST['command']) and $_POST['command'] == 'change') {
         $data = ['command' => 'change', 'token' => $_POST['token'], 'user' => $_POST['user'], 'id_note' => $_POST['id_note']];

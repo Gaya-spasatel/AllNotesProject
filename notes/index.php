@@ -1,9 +1,6 @@
 <html lang="en"><head><title>MultiNoteWebApp</title></head><body>
 
 <?php
-$flag = true;
-
-if($flag){
 echo "<table><tr><td>   
 <form id='forma' action='authorizationController.php' method='post'> 
 <h1>Форма входа</h1> 
@@ -22,6 +19,5 @@ echo "<table><tr><td>
 <p><input type='submit' name='submit1' value='Зарегистрироваться'> <br></p></form>
 
 </td>
-</tr>";
-}
-?></body></html>
+</tr>";?>
+</body></html>

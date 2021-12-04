@@ -47,7 +47,13 @@ echo "<form name='form' method='get' action=app.php>
 	<input type='hidden' value='new' name='command'>
 	<input type='hidden' value=".$_GET['token']." name='token'>	
 </form>";
-}
+} else{
+        var_export($data);
+        echo PHP_EOL."error didnot get notes";
+    }
+} else{
+    var_export($_GET);
+    echo PHP_EOL."error get";
 }
 ?>
 </body>
