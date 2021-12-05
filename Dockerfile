@@ -1,26 +1,32 @@
 # Для начала указываем исходный образ, он будет использован как основа
-FROM php:7.4-apache
+FROM php:8.1-apache
 MAINTAINER Daria Peregudova <dashapereg@mai.ru>
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # В данном случае мы установим некоторые зависимости и модули PHP.
 # Для установки модулей используем команду docker-php-ext-install.
 # На каждый RUN создается новый слой в образе, поэтому рекомендуется объединять команды.
-RUN apt-get update && apt-get install -y libaprutil1-dbd-mysql libxml2-dev p7zip unzip \
-        curl \
-        wget \
-        git \
-        apt-utils \
-        bash \
-        vim
+RUN apt-get update &&  \
+    apt-get install -y --no-install-recommends \
+      libaprutil1-dbd-mysql  \
+      libxml2-dev  \
+      p7zip  \
+      unzip \
+      curl \
+      wget \
+      git \
+      apt-utils \
+      bash \
+      vim \
+      libfreetype6-dev \
+      libjpeg62-turbo-dev \
+      libpng-dev \
+      libwebp-dev \
+      zlib1g-dev \
+      zlib1g-dev \
+      libzip-dev \
+      zip
 
-RUN apt-get install -y libfreetype6-dev
-RUN apt-get install -y libjpeg62-turbo-dev
-RUN apt-get install -y libpng-dev
-RUN apt-get install -y zlib1g-dev
-RUN apt-get install -y libzip-dev
-RUN apt-get install -y zip
-
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && docker-php-ext-configure zip
 
 RUN docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql zip gd \
     && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer \
@@ -28,7 +34,7 @@ RUN docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql zip gd \
     && composer self-update
 
 #RUN cd /var/www/html && composer create-project --prefer-dist yiisoft/yii2-app-basic multinote
-RUN cd /var/www/html && composer create-project --prefer-dist yiisoft/yii2-app-advanced multinote
+#RUN cd /var/www/html && composer create-project --prefer-dist yiisoft/yii2-app-advanced multinote
 #RUN cd /var/www/html && composer create-project --prefer-dist laravel/laravel multinote
 
 RUN apt-get clean
