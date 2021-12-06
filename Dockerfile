@@ -62,6 +62,7 @@ RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/profiler-pack && \
     composer require --dev debug
 RUN cd /var/www/html/multinote && composer require annotations
+RUN cd /var/www/html/multinote && composer require --dev twig
 
 RUN apt-get clean
 
