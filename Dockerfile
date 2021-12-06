@@ -65,7 +65,4 @@ RUN cd /var/www/html/multinote && composer require annotations
 
 RUN apt-get clean
 
-#ADD conf/php.ini-mail /usr/local/etc/php/php.ini
-# Добавим свой php.ini, можем в нем определять свои значения конфига
-#ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
 
