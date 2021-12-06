@@ -55,7 +55,13 @@ RUN docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql zip gd intl \
 RUN git config --global user.email "dashapereg@mail.ru" && \
     git config --global user.name "Daria Peregudova"
 
-RUN cd /var/www/html && symfony new --full multinote
+RUN cd /var/www/html && \
+    composer create-project symfony/skeleton multinote
+
+RUN cd /var/www/html/multinote && composer require --dev logger && \
+    composer require --dev symfony/profiler-pack && \
+    composer require --dev debug
+RUN cd /var/www/html/multinote && composer require annotations
 
 RUN apt-get clean
 

@@ -19,6 +19,7 @@ services:
     volumes:
       - ./conf/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./conf/php.ini:/usr/local/etc/php/php.ini
+      - ./src:/var/www/html/multinote/src
 #      - ./notes:/var/www/html
     ports:
       - "80:80"
