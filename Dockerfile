@@ -1,5 +1,5 @@
 # Для начала указываем исходный образ, он будет использован как основа
-FROM php:8.1-apache
+FROM php:8.0-apache
 MAINTAINER Daria Peregudova <dashapereg@mail.ru>
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # В данном случае мы установим некоторые зависимости и модули PHP.
@@ -49,9 +49,6 @@ RUN docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql zip gd intl \
     && a2enmod rewrite \
     && composer self-update
 
-#RUN cd /var/www/html && composer create-project --prefer-dist yiisoft/yii2-app-basic multinote
-#RUN cd /var/www/html && composer create-project --prefer-dist yiisoft/yii2-app-advanced multinote
-#RUN cd /var/www/html && composer create-project --prefer-dist laravel/laravel multinote
 RUN git config --global user.email "dashapereg@mail.ru" && \
     git config --global user.name "Daria Peregudova"
 
@@ -60,9 +57,14 @@ RUN cd /var/www/html && \
 
 RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/profiler-pack && \
-    composer require --dev debug
-RUN cd /var/www/html/multinote && composer require annotations
-RUN cd /var/www/html/multinote && composer require --dev twig
+    composer require --dev debug && \
+    composer require annotations && \
+    composer require --dev twig &&  \
+    composer require --dev symfony/orm-pack &&  \
+    composer require --dev symfony/maker-bundle
+
+RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:db_password@127.0.0.1:3306/db_name\?serverVersion=5.7\"!DATABASE_URL=\"mysql://multinote:multinotepassword@db:3306/multinote\?serverVersion=5.7\"!g' .env
+RUN cd /var/www/html/multinote && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env
 
 RUN apt-get clean
 
