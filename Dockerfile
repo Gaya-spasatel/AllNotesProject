@@ -63,8 +63,8 @@ RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/orm-pack &&  \
     composer require --dev symfony/maker-bundle
 
-RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:db_password@127.0.0.1:3306/db_name\?serverVersion=5.7\"!DATABASE_URL=\"mysql://multinote:multinotepassword@db:3306/multinote\?serverVersion=5.7\"!g' .env
-RUN cd /var/www/html/multinote && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env
+RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:db_password@127.0.0.1:3306/db_name\?serverVersion=5.7\"!DATABASE_URL=\"mysql://multinote:multinotepassword@db:3306/multinote\?serverVersion=5.7\"!g' .env \
+    && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env
 
 RUN apt-get clean
 
