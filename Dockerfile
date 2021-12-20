@@ -31,7 +31,7 @@ RUN apt-get update &&  \
       zip
 
 # memcached
-RUN pecl install memcached-3.1.5
+RUN pecl install memcached-3.1.5 && pecl install redis
 RUN docker-php-ext-enable memcached
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && docker-php-ext-configure zip \
@@ -49,11 +49,13 @@ RUN docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql zip gd intl \
     && a2enmod rewrite \
     && composer self-update
 
+#RUN docker-php-ext-install -j$(nproc) redis
+
 RUN git config --global user.email "dashapereg@mail.ru" && \
     git config --global user.name "Daria Peregudova"
 
 RUN cd /var/www/html && \
-    composer create-project symfony/skeleton multinote
+    composer create-project symfony/website-skeleton multinote
 
 RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/profiler-pack && \
@@ -64,8 +66,11 @@ RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/maker-bundle
 
 RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:db_password@127.0.0.1:3306/db_name\?serverVersion=5.7\"!DATABASE_URL=\"mysql://multinote:multinotepassword@db:3306/multinote\?serverVersion=5.7\"!g' .env \
-    && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env
+    && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env \
+    && echo "REDIS_HOST=\"localhost\"" >> .env \
+    && echo "REDIS_PORT=\"6379\"" >> .env\
+    && echo "REDIS_PORT=\"tempassword\"" >> .env
 
 RUN apt-get clean
-
+COPY
 
