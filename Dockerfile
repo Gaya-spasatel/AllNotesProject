@@ -69,8 +69,10 @@ RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:
     && sed -i -E 's!DATABASE_URL=\"postgresql!# DATABASE_URL=\"postgresql!g' .env \
     && echo "REDIS_HOST=\"localhost\"" >> .env \
     && echo "REDIS_PORT=\"6379\"" >> .env\
-    && echo "REDIS_PORT=\"tempassword\"" >> .env
+    && echo "REDIS_PASSWORD=\"tempassword\"" >> .env
 
 RUN apt-get clean
-COPY
+COPY ./conf/cache.yaml /var/www/html/multinote/config/packages/
+COPY ./conf/framework.yaml /var/www/html/multinote/config/packages/
+COPY ./conf/services.yaml /var/www/html/multinote/config/
 
