@@ -49,13 +49,15 @@ RUN docker-php-ext-install -j$(nproc) opcache mysqli pdo pdo_mysql zip gd intl \
     && a2enmod rewrite \
     && composer self-update
 
+COPY ./conf/symfony.php.ini $PHP_INI_DIR/conf.d/symfony.ini
 #RUN docker-php-ext-install -j$(nproc) redis
 
 RUN git config --global user.email "dashapereg@mail.ru" && \
     git config --global user.name "Daria Peregudova"
 
 RUN cd /var/www/html && \
-    composer create-project symfony/website-skeleton multinote
+    composer create-project symfony/website-skeleton multinote --prefer-dist --no-progress --no-interaction && \
+    composer clear-cache
 
 RUN cd /var/www/html/multinote && composer require --dev logger && \
     composer require --dev symfony/profiler-pack && \
@@ -71,7 +73,9 @@ RUN cd /var/www/html/multinote && sed -i -E 's!# DATABASE_URL=\"mysql://db_user:
     && echo "REDIS_PORT=\"6379\"" >> .env\
     && echo "REDIS_PASSWORD=\"tempassword\"" >> .env
 
-RUN apt-get clean
+RUN apt-get clean && \
+    pecl clear-cache && \
+    composer clear-cache
 COPY ./conf/cache.yaml /var/www/html/multinote/config/packages/
 COPY ./conf/framework.yaml /var/www/html/multinote/config/packages/
 COPY ./conf/services.yaml /var/www/html/multinote/config/
