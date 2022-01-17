@@ -1,5 +1,5 @@
 # Для начала указываем исходный образ, он будет использован как основа
-FROM php:8.0-apache
+FROM php:8.1-apache
 MAINTAINER Daria Peregudova <dashapereg@mail.ru>
 # RUN выполняет идущую за ней команду в контексте нашего образа.
 # В данном случае мы установим некоторые зависимости и модули PHP.
@@ -7,9 +7,12 @@ MAINTAINER Daria Peregudova <dashapereg@mail.ru>
 # На каждый RUN создается новый слой в образе, поэтому рекомендуется объединять команды.
 RUN apt-get update &&  \
     apt-get install -y --no-install-recommends \
-      libaprutil1-dbd-mysql  \
-      libxml2-dev  \
-      p7zip  \
+      acl \
+      file \
+      gettext \
+      libaprutil1-dbd-mysql \
+      libxml2-dev \
+      p7zip \
       unzip \
       curl \
       libcurl4 \
